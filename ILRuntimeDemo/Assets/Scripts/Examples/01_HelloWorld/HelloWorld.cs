@@ -2,6 +2,9 @@
 using System.Collections;
 using System.IO;
 using ILRuntime.Runtime.Enviorment;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class HelloWorld : MonoBehaviour
 {
@@ -45,13 +48,13 @@ public class HelloWorld : MonoBehaviour
             yield return null;
         if (!string.IsNullOrEmpty(www.error))
             UnityEngine.Debug.LogError(www.error);
-        byte[] pdb = www.bytes;
+        byte[] pdb = new byte[0];//www.bytes;
         using (System.IO.MemoryStream fs = new MemoryStream(dll))
         {
-            using (System.IO.MemoryStream p = new MemoryStream(pdb))
-            {
-                appdomain.LoadAssembly(fs, p, new Mono.Cecil.Pdb.PdbReaderProvider());
-            }
+            appdomain.LoadAssembly(fs, null, new Mono.Cecil.Pdb.PdbReaderProvider());
+            //using (System.IO.MemoryStream p = new MemoryStream(pdb))
+            //{
+            //}
         }
 
         InitializeILRuntime();
@@ -74,4 +77,12 @@ public class HelloWorld : MonoBehaviour
     {
 
     }
+
+#if UNITY_EDITOR
+    [MenuItem("OpenFolder/ShowStreamingAssetsPath")]
+    public static void RevealStreamingAssetsPath()
+    {
+        EditorUtility.RevealInFinder(Application.streamingAssetsPath);
+    }
+#endif
 }

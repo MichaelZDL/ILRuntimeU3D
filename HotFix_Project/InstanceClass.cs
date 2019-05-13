@@ -27,12 +27,12 @@ namespace HotFix_Project
         // static method
         public static void StaticFunTest()
         {
-            UnityEngine.Debug.Log("!!! InstanceClass.StaticFunTest()");
+            UnityEngine.Debug.Log("fuck you");
         }
 
         public static void StaticFunTest2(int a)
         {
-            UnityEngine.Debug.Log("!!! InstanceClass.StaticFunTest2(), a=" + a);
+            UnityEngine.Debug.Log("fuck you" + a);
         }
 
         public static void GenericMethod<T>(T a)
